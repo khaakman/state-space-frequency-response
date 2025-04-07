@@ -8,9 +8,9 @@ Created on Fri Mar 14 17:51:01 2025
 
 import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.statespace.structural import UnobservedComponents
 from matplotlib import rcParams
 import matplotlib.ticker as mticker
+from shared_functions import load_PSMSL_data, correct_surge, define_model
 plt.style.use('ggplot')
 rcParams.update({'font.size': 12})
 
@@ -30,46 +30,11 @@ fn_base = '../data/PSMSL/{}_yearly.rlrdata'
 filenames = [fn_base.format(station) for station in stations]
 
 
-def load_data(fn, t0, t1):
-    data = np.loadtxt(fn, delimiter=';', usecols=[0,1])
-    t = data[:,0]
-    y = data[:,1] / 10 #convert mm to cm
-    y -= np.nanmean(y)
-    
-    # Only keep data between t0 and t1
-    idx = np.where(t >= t0)
-    y = y[idx]
-    t = t[idx]
-    
-    idx = np.where(t < t1)
-    y = y[idx]
-    t = t[idx]
-    return t, y
 
-def correct_surge(y, station):
-    surge_fn = '../processed_data/GTSM_surge_{}_yearly.npy'.format(station)
-    surge = np.load(surge_fn)
-    y -= surge
-    return y
-
-def define_model(t, y):
-    #Define nodal regressors
-    omega_nodal = 2*np.pi / 18.613
-    X = np.zeros((len(t), 2))
-    nodal_cos = np.cos(omega_nodal * t)
-    nodal_sin = np.sin(omega_nodal * t)
-    X[:,0] = nodal_cos
-    X[:,1] = nodal_sin
- 
-    model = UnobservedComponents(y, level=True, trend=True, stochastic_level=False,
-                                 stochastic_trend=True,
-                                 autoregressive=1, exog=X, mle_regression=True, irregular=False)
-    
-    return model
 
 def compute_trends_before_after(fn):
     station = fn.split('/')[-1].split('_')[0]
-    t, y = load_data(fn, t0, t1)
+    t, y = load_PSMSL_data(fn, t0, t1)
     if correct_surge_GTSM:
         y = correct_surge(y, station)
         

@@ -8,20 +8,13 @@ Created on Mon Apr  7 13:33:29 2025
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
+from shared_functions import H_IRW, rectangular_window
 
 ### Settings ###
 Nomega = 50_000
 r_vec = np.logspace(1, 13, 50)
+################
 
-def H_IRW(omega, r):
-    """ 
-    frequency response of IRW trend model
-    """
-    den = 1 + r * (2 - 2*np.cos(omega))**2
-    return 1 / den
-
-def rectangular_window(omega, N):
-    return np.sin(omega*N/2) / (np.sin(omega/2))
 
 def compute_windowed_freq_resp(freq_resp, window):
     windowed_freq_resp = np.convolve(freq_resp, window, mode='full') / Nomega

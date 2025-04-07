@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from astropy.timeseries import LombScargle
 from statsmodels.tsa.statespace.structural import UnobservedComponents
-
+from shared_functions import H_RW_amp, sci_notation, rectangular_window
 
 ### Settings ###
 N_realizations = 100
@@ -19,12 +19,6 @@ period = 2*np.pi
 r_values = [1e3, 1e6]
 ###############
 
-
-
-def H_RW_amp(omega, omega0, r):
-    num = 2 - np.cos(omega0) * 2 * np.cos(omega)
-    den = 2 + 4*r + 2*r*np.cos(2*omega0) - (4*r + 1) * np.cos(omega0)*2*np.cos(omega) + r*(2*np.cos(2*omega))
-    return num / den
 
 
 def compute_lombscargle(t, y, normalization='psd'):
@@ -57,27 +51,6 @@ def compute_freq_response(t, r):
     resp = X / Y
     return freqs, resp
 
-def rectangular_window(omega, N):
-    output = np.sin(omega*N/2) / (np.sin(omega/2)) 
-    idx = np.where(np.isclose(omega, 0))
-    output[idx] = N
-    return output
-
-# Define function for string formatting of scientific notation
-def sci_notation(num, decimal_digits=1, precision=None, exponent=None):
-    """
-    Returns a string representation of the scientific
-    notation of the given number formatted for use with
-    LaTeX or Mathtext, with specified number of significant
-    decimal digits and precision (number of decimal digits
-    to show). The exponent to be used can also be specified
-    explicitly.
-    """
-    if exponent is None:
-        exponent = int(np.floor(np.log10(abs(num))))
-    if precision is None:
-        precision = decimal_digits
-    return r'$10^{{{0:d}}}$'.format(exponent)
 
 def plot_responses(ax, omega_analytical, omega_numerical, analytical, windowed, numerical, r, dashes):
     ax.plot(omega_analytical, analytical, color='k', label='Analytical')
