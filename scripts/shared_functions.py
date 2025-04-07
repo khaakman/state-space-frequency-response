@@ -75,6 +75,12 @@ def rectangular_window(omega, N):
     output[idx] = N
     return output
 
+def compute_windowed_freq_response(omega, H, N):
+    window = rectangular_window(omega, N)
+    H_windowed = np.convolve(H, window, mode='same') / len(omega)
+    H_windowed = np.abs(H_windowed) / np.max(np.abs(H_windowed))
+    return H_windowed
+
 def load_PSMSL_data(fn, t0, t1):
     data = np.loadtxt(fn, delimiter=';', usecols=[0,1])
     t = data[:,0]

@@ -8,31 +8,22 @@ Created on Mon Apr  7 13:33:29 2025
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
-from shared_functions import H_IRW, rectangular_window
+from shared_functions import H_IRW, rectangular_window, compute_windowed_freq_response
 
 ### Settings ###
 Nomega = 50_000
 r_vec = np.logspace(1, 13, 50)
 ################
 
-
-def compute_windowed_freq_resp(freq_resp, window):
-    windowed_freq_resp = np.convolve(freq_resp, window, mode='full') / Nomega
-    windowed_freq_resp = np.abs(windowed_freq_resp)[Nomega//2 : Nomega+Nomega//2] / np.max(np.abs(windowed_freq_resp))
-    windowed_freq_resp = windowed_freq_resp[Nomega // 2 :]
-    return windowed_freq_resp
-
 def compute_cutoff_freqs(Ntime, r_vec):
     # Define frequencies
-    omega_array = np.arange(-np.pi, np.pi, 2*np.pi/Nomega)[:Nomega] #neg and pos frequencies
+    omega_array = np.arange(-np.pi, np.pi, 2*np.pi/Nomega)
     trunc_omega_array = omega_array[Nomega//2 : Nomega+Nomega//2] #positive frequencies
     
     # Set empty arrays to store cut-off frequencies
     cutoff_freqs = np.zeros(len(r_vec))
     windowed_cutoff_freqs = np.zeros(len(r_vec))
     
-    # Compute DTFT of rectangular window
-    window = rectangular_window(omega_array, Ntime)
     
     for i in range(len(r_vec)): #for each NVR, compute cut-off frequency
         # For analytical frequency response
@@ -42,7 +33,7 @@ def compute_cutoff_freqs(Ntime, r_vec):
         cutoff_freqs[i] = trunc_omega_array[idx]
         
         # For windowed frequency response
-        windowed_freq_resp = compute_windowed_freq_resp(freq_resp, window)
+        windowed_freq_resp = compute_windowed_freq_response(omega_array, freq_resp, Ntime)[Nomega//2:]
         windowed_idx = np.where(windowed_freq_resp < 1/np.sqrt(2))[0][0]
         windowed_cutoff_freqs[i] = trunc_omega_array[windowed_idx]
     

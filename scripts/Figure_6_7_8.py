@@ -8,7 +8,7 @@ Created on Mon Apr  7 16:19:40 2025
 
 import numpy as np
 import matplotlib.pyplot as plt
-from shared_functions import H_IRW_trend_AR1_errors, rectangular_window, load_PSMSL_data, correct_surge, define_model
+from shared_functions import H_IRW_trend_AR1_errors, load_PSMSL_data, correct_surge, define_model, compute_windowed_freq_response
 
 ### OPTIONS ###
 t0 = 1890 #inclusive
@@ -39,13 +39,6 @@ def compute_single_station(fn):
     trend_sigma = np.sqrt(res.smoothed_state_cov[0,0,:])
     
     return trend, trend_sigma
-
-
-def compute_windowed_freq_response(omega, H, N):
-    window = rectangular_window(omega, N)
-    H_windowed = np.convolve(H, window, mode='same') / len(omega)
-    H_windowed = np.abs(H_windowed) / np.max(np.abs(H_windowed))
-    return H_windowed
 
 def compute_loglikelihood_function(fn, r_vec):
     station = fn.split('/')[-1].split('_')[0]
@@ -98,8 +91,6 @@ def plot_Figure_6(trends, trend_sigmas):
     return colors
 
 
-
-
 def plot_Figure_7(ll_vecs, r_hats):
     plt.figure(figsize=(8,6))
     for i, station in enumerate(stations):
@@ -117,9 +108,6 @@ def plot_Figure_7(ll_vecs, r_hats):
     plt.ylabel('Loglikelihood [-]')
     plt.savefig('../figures/Figure_7.pdf', dpi=300, bbox_inches='tight', pad_inches=0.05)
     return
-
-
-
 
 
 def plot_Figure_8(stations, r_hats, phi_hats, colors):
@@ -173,7 +161,6 @@ def main():
     stations = ['IJmuiden', 'Harlingen', 'Den Helder']
     
     plot_Figure_8(stations, r_hats, phi_hats, colors)
-    
     
     return
 
