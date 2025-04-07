@@ -8,9 +8,10 @@ Created on Fri Mar 14 17:51:01 2025
 
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
-import matplotlib.ticker as mticker
 from shared_functions import load_PSMSL_data, correct_surge, define_model
+import matplotlib.ticker as mticker
+from matplotlib import rcParams
+
 plt.style.use('ggplot')
 rcParams.update({'font.size': 12})
 

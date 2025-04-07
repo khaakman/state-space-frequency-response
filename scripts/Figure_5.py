@@ -7,8 +7,10 @@ Created on Mon Apr  7 13:33:29 2025
 """
 import numpy as np
 import matplotlib.pyplot as plt
+from shared_functions import H_IRW, compute_windowed_freq_response
 from matplotlib import rcParams
-from shared_functions import H_IRW, rectangular_window, compute_windowed_freq_response
+plt.style.use('ggplot')
+rcParams.update({'font.size': 16})
 
 ### Settings ###
 Nomega = 50_000
@@ -51,8 +53,7 @@ def make_figure():
     # 50 years
     Ntime = 50 #50 timesteps (50 years with yearly measurements)
     cutoff_freqs, windowed_cutoff_freqs = compute_cutoff_freqs(Ntime, r_vec)
-    
-    
+     
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(14, 6))
     ax = axes[0]
     ax.plot(r_vec, windowed_cutoff_freqs, label='Windowed frequency response')
@@ -64,8 +65,6 @@ def make_figure():
     ax.set_xlabel(r'NVR [-]')
     ax.axhline(1/Ntime, color='k', label='Frequency resolution')
     ax.text(5, 1.1e-4, 'a)', fontweight='semibold')
-    #ax.legend(loc='upper center')
-
 
     # 132 years
     Ntime = 132 #50 timesteps (132 years with yearly measurements)
@@ -77,7 +76,6 @@ def make_figure():
     ax.set_title('132 years')
     ax.set_xscale('log')
     ax.set_yscale('log')
-    #ax.set_ylabel('Cutoff frequency [cpy]')
     ax.set_xlabel(r'NVR [-]')
     ax.axhline(1/Ntime, color='k', label='Frequency resolution')
     ax.legend(loc='upper center', fontsize=14)
