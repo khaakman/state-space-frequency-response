@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr  7 17:08:57 2025
-
-@author: kbhaakman
-"""
-
 import numpy as np
 from statsmodels.tsa.statespace.structural import UnobservedComponents
 
@@ -26,10 +18,9 @@ def H_IRW_amp(omega, omega0, r):
     num = 1
     term1 = np.cos(2*omega0) * 2*np.cos(2*omega)
     term2 = 4 * np.cos(omega0) * 2*np.cos(omega)
-    term3 = np.sin(2*omega0) * -2j * np.sin(2*omega) #(z**(-2) - z**2)
-    term4 = 4 * np.sin(omega0) * -2j * np.sin(omega) #(z**(-1) - z)
-    term5 = np.sin(2*omega0) * 2j * np.sin(2*omega) #(z**2 - z**(-2))
-    
+    term3 = np.sin(2*omega0) * -2j * np.sin(2*omega)
+    term4 = 4 * np.sin(omega0) * -2j * np.sin(omega) 
+    term5 = np.sin(2*omega0) * 2j * np.sin(2*omega) 
     den = 1 + r * (6 + term1 - term2 + (term3 - term4) * (term5 + term4) / (term2 - term1 - 6))
     return num / den
 

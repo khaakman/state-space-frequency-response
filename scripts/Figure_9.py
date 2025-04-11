@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 14 17:51:01 2025
-
-@author: kbhaakman
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from shared_functions import load_PSMSL_data, correct_surge, define_model

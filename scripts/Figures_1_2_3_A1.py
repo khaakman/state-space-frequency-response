@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr  7 13:18:27 2025
-
-@author: kbhaakman
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from shared_functions import H_RW, H_IRW, H_RW_amp, H_IRW_amp, H_C, H_M, H_IRW_trend_AR1_errors, sci_notation

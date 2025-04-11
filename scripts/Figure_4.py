@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr  7 14:25:43 2025
-
-@author: kbhaakman
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from astropy.timeseries import LombScargle

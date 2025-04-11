@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Apr  7 16:19:40 2025
-
-@author: kbhaakman
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 from shared_functions import H_IRW_trend_AR1_errors, load_PSMSL_data, correct_surge, define_model, compute_windowed_freq_response
