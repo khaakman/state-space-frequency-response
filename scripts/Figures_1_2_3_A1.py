@@ -74,7 +74,7 @@ ax.plot(omega_array, mag_resp_M, label=r'r$_\eta$ = {}'.format(sci_notation(r_et
 ax.plot(omega_array, mag_resp_IRW, linestyle='dashed', color='orange')
 ax.plot(omega_array, mag_resp_RW_amp, linestyle='dashed', color='blue')
 ax.set_xlim(0, 0.3)
-ax.set_ylabel('Magnitude response [-]')
+ax.tick_params(axis='x', labelbottom=False)  
 ax.legend(loc='upper right')
 ax.set_title('IRW trend + RW amp cycle')
 
@@ -91,7 +91,7 @@ ax.plot(omega_array, mag_resp_IRW, linestyle='dashed', color='orange')
 ax.plot(omega_array, mag_resp_RW_amp, linestyle='dashed', color='blue')
 ax.set_xlim(0, 0.6)
 ax.set_xlabel('Frequency [rad/sample]')
-ax.set_ylabel('Magnitude response [-]')
+fig.text(0.07, 0.5, 'Magnitude response [-]', va='center', rotation='vertical')
 ax.legend(loc='upper right')
 fig.savefig('../figures/Figure_3.pdf', dpi=300, bbox_inches='tight', pad_inches=0.05)
 
