@@ -44,36 +44,21 @@ def make_figure():
     rcParams.update({'font.size': 18})
     
     # 50 years
-    Ntime = 50 #50 timesteps (50 years with yearly measurements)
+    Ntime = 132 #132 timesteps (132 years with yearly measurements)
     cutoff_freqs, windowed_cutoff_freqs = compute_cutoff_freqs(Ntime, r_vec)
      
-    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(14, 6))
-    ax = axes[0]
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(14, 6))
     ax.plot(r_vec, windowed_cutoff_freqs, label='Windowed frequency response')
     ax.plot(r_vec, cutoff_freqs, label='Analytical frequency response')
-    ax.set_title('50 years')
+    ax.set_title('T = {} years'.format(Ntime))
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.set_ylabel('Cut-off frequency [cpy]')
     ax.set_xlabel(r'NVR [-]')
     ax.axhline(1/Ntime, color='k', label='Frequency resolution')
-    ax.text(5, 1.1e-4, 'a)', fontweight='semibold')
-
-    # 132 years
-    Ntime = 132 #50 timesteps (132 years with yearly measurements)
-    cutoff_freqs, windowed_cutoff_freqs = compute_cutoff_freqs(Ntime, r_vec)
-    
-    ax = axes[1]
-    ax.plot(r_vec, windowed_cutoff_freqs, label='Windowed frequency response')
-    ax.plot(r_vec, cutoff_freqs, label='Analytical frequency response')
-    ax.set_title('132 years')
-    ax.set_xscale('log')
-    ax.set_yscale('log')
-    ax.set_xlabel(r'NVR [-]')
-    ax.axhline(1/Ntime, color='k', label='Frequency resolution')
-    ax.legend(loc='upper center', fontsize=14)
-    ax.text(5, 1.1e-4, 'b)', fontweight='semibold')
+    ax.legend(fontsize=14)
     plt.savefig('../figures/Figure_5.pdf', dpi=300, bbox_inches='tight', pad_inches=0.05)
+    
     return
 
 def main():
