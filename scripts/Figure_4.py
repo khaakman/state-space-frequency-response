@@ -54,6 +54,7 @@ def plot_responses(ax, omega_analytical, omega_numerical, analytical, windowed, 
     ax.set_xlim(0.93, 1.07)
     ax.set_xlabel('Frequency [radians/sample]')
     ax.set_title('r = {}'.format(sci_notation(r,1)))
+    
     return 
 
 
@@ -71,6 +72,7 @@ def main():
     ax = axes[0]
     plot_responses(ax, omega_array, freqs*2*np.pi, resp_analytical, resp_windowed, resp_numerical, r, dashes=(5,10))
     ax.set_ylabel('Magnitude response [-]')
+    ax.text(0.02, 0.95, 'a)', fontweight='semibold', transform=ax.transAxes)
     
     r = r_values[1]
     resp_analytical = H_RW_amp(omega_array, omega0, r)
@@ -80,6 +82,7 @@ def main():
     ax = axes[1]
     plot_responses(ax, omega_array, freqs*2*np.pi, resp_analytical, resp_windowed, resp_numerical, r, dashes=(5,5))
     ax.legend(loc='upper right')
+    ax.text(0.02, 0.95, 'b)', fontweight='semibold', transform=ax.transAxes)
     fig.savefig('../figures/Figure_4.pdf', dpi=300, bbox_inches='tight', pad_inches=0.05)
     return
 
