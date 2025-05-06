@@ -77,6 +77,7 @@ ax.set_xlim(0, 0.3)
 ax.tick_params(axis='x', labelbottom=False)  
 ax.legend(loc='upper right')
 ax.set_title('IRW trend + RW amp cycle')
+ax.text(0.01, 0.8, 'a)', fontweight='semibold', transform=ax.transAxes)
 
 omega0 = 2*np.pi/13 #frequency periodic component
 mag_resp_C = np.abs(H_C(omega_array, omega0, r_eta, r_xi))
@@ -93,6 +94,7 @@ ax.set_xlim(0, 0.6)
 ax.set_xlabel('Frequency [rad/sample]')
 fig.text(0.07, 0.5, 'Magnitude response [-]', va='center', rotation='vertical')
 ax.legend(loc='upper right')
+ax.text(0.01, 0.8, 'b)', fontweight='semibold', transform=ax.transAxes)
 fig.savefig('../figures/Figure_3.pdf', dpi=300, bbox_inches='tight', pad_inches=0.05)
 
 
