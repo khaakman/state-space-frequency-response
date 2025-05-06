@@ -122,7 +122,7 @@ def plot_Figure_8(stations, r_hats, phi_hats, colors):
     ax.set_xlim(0, 0.06)
     ax.set_ylabel('Magnitude response [-]')
     plt.axvline(1/18.613, linewidth=2, linestyle='dashed', label='Nodal cycle')
-    plt.axvspan(1/80, 1/60, alpha=0.2, color='r', label='AMO')
+    plt.axvspan(1/70, 1/50, alpha=0.2, color='r', label='AMO')
     ax.legend()
     plt.savefig('../figures/Figure_8.pdf', dpi=300, bbox_inches='tight', pad_inches=0.05)
     return
