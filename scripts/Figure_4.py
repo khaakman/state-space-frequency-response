@@ -53,7 +53,7 @@ def plot_responses(ax, omega_analytical, omega_numerical, analytical, windowed, 
     ax.plot(omega_numerical, numerical, color='#0072B2', label='Numerical')
     ax.set_xlim(0.93, 1.07)
     ax.set_xlabel('Frequency [radians/sample]')
-    ax.set_title('r = {}'.format(sci_notation(r,1)))
+    ax.set_title('NVR = {}'.format(sci_notation(r,1)))
     
     return 
 

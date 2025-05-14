@@ -20,11 +20,11 @@ linestyles = ['solid', 'dashed', 'dashdot']
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(14, 6))
 for i, r in enumerate(r_vec):
     mag_resp_RW = np.abs(H_RW(omega_array, r))
-    axes[0].plot(omega_array, mag_resp_RW, label=r'r = $\sigma^2_{{\varepsilon}} / \sigma^2_{{\eta}}$ = {}'.format(sci_notation(r, 1)), linestyle=linestyles[i])
+    axes[0].plot(omega_array, mag_resp_RW, label=r'NVR = {}'.format(sci_notation(r, 1)), linestyle=linestyles[i])
     
     r_IRW = r_vec_IRW[i]
     mag_resp_IRW = np.abs(H_IRW(omega_array, r_IRW))
-    axes[1].plot(omega_array, mag_resp_IRW, label=r'r = $\sigma^2_{{\varepsilon}} / \sigma^2_{{\eta}}$ = {}'.format(sci_notation(r_IRW, 1)), linestyle=linestyles[i])
+    axes[1].plot(omega_array, mag_resp_IRW, label=r'NVR = {}'.format(sci_notation(r_IRW, 1)), linestyle=linestyles[i])
 axes[0].set_xlim(0, 0.4)
 axes[1].set_xlim(0, 0.4)
 axes[0].set_xlabel('Frequency [rad/sample]')
@@ -41,11 +41,11 @@ omega0 = 1
 fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(14, 6))
 for i, r in enumerate(r_vec):
     mag_resp_RW = np.abs(H_RW_amp(omega_array, omega0, r))
-    axes[0].plot(omega_array, mag_resp_RW, label=r'r = {}'.format(sci_notation(r, 1)), linestyle=linestyles[i])
+    axes[0].plot(omega_array, mag_resp_RW, label=r'NVR = {}'.format(sci_notation(r, 1)), linestyle=linestyles[i])
     
     r_IRW = r_vec_IRW[i]
     mag_resp_IRW = np.abs(H_IRW_amp(omega_array, omega0, r_IRW))
-    axes[1].plot(omega_array, mag_resp_IRW, label=r'r = {}'.format(sci_notation(r_IRW, 1)), linestyle=linestyles[i])
+    axes[1].plot(omega_array, mag_resp_IRW, label=r'NVR = {}'.format(sci_notation(r_IRW, 1)), linestyle=linestyles[i])
 axes[0].set_xlim(0.5, 1.5)
 axes[1].set_xlim(0.5, 1.5)
 axes[0].set_xlabel('Frequency [rad/sample]')
