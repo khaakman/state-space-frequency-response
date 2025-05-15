@@ -104,7 +104,7 @@ def plot_Figure_7(ll_vecs, r_hats):
     ax = fig.add_subplot(1, 2, 1, projection=ccrs.Mercator())
     for i, key in enumerate(coordinates):
         lat, lon = coordinates[key]
-        ax.scatter(lon, lat, label=title_names[i], s=50, transform=ccrs.PlateCarree(), zorder=10)
+        ax.scatter(lon, lat, label=title_names[i], s=100, edgecolor='k', linewidth=2, transform=ccrs.PlateCarree(), zorder=10)
     ax.legend()
     land_50m = cfeature.NaturalEarthFeature('physical', 'land', '10m',
                                         edgecolor='face',
@@ -138,7 +138,7 @@ def plot_Figure_7(ll_vecs, r_hats):
         if station in ['DenHelder', 'IJmuiden', 'Vlissingen', 'HvH', 'Harlingen', 'Delfzijl']:
             ll = ll_vecs[i,:]
             ax.plot(r_vec, ll, label=title_names[i])
-            ax.scatter(r_hats[i], np.max(ll), s=50)
+            ax.scatter(r_hats[i], np.max(ll), s=100, edgecolor='k')
 
     ax.legend(loc='lower right')
     ax.set_xlabel('NVR [-]')
