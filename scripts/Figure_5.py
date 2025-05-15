@@ -63,7 +63,6 @@ def make_figure():
 
 def main():
     make_figure()
-    
     return
 
 

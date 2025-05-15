@@ -12,17 +12,14 @@ rcParams.update({'font.size': 12})
 t0 = 1890 #inclusive
 t1 = 2022 #exclusive
 correct_surge_GTSM = True
-r_vec = np.logspace(0, 12, 40)
+r_vec = np.linspace(2.2e2, 2.5e4, 50)
 ################
-
 
 
 stations = ['Vlissingen', 'HvH', 'IJmuiden', 'DenHelder', 'Harlingen', 'Delfzijl']
 title_names = ['Vlissingen', 'Hoek van Holland', 'IJmuiden', 'Den Helder', 'Harlingen', 'Delfzijl']
 fn_base = '../data/PSMSL/{}_yearly.rlrdata'
 filenames = [fn_base.format(station) for station in stations]
-
-
 
 
 def compute_trends_before_after(fn):
@@ -141,7 +138,7 @@ def plot_mean_trends_six(before, after, before_variance, after_variance, r_hats)
     station = 2
     plot_trend_with_confidence_intervals(ax, after, after_variance, station, after_label)
     plot_trend_with_confidence_intervals(ax, before, before_variance, station, before_label)
-    ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE')
+    #ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE')
     ax.set_xscale('log')
     ax.set_title(title_names[station])
     
@@ -149,7 +146,7 @@ def plot_mean_trends_six(before, after, before_variance, after_variance, r_hats)
     station = 3
     plot_trend_with_confidence_intervals(ax, after, after_variance, station, after_label)
     plot_trend_with_confidence_intervals(ax, before, before_variance, station, before_label)
-    ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE')
+    #ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE')
     ax.set_xscale('log')
     ax.set_ylabel('Sea level trend [mm/yr]', fontsize=12)
     ax.set_xlabel(r'NVR [-]')
@@ -172,7 +169,7 @@ def plot_mean_trends_six(before, after, before_variance, after_variance, r_hats)
     plot_trend_with_confidence_intervals(ax, before, before_variance, station, before_label)
     ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE estimate')
     ax.set_xscale('log')
-    ax.legend()
+    ax.legend(loc='upper center')
     ax.set_xlabel(r'NVR [-]')
     ax.set_title(title_names[station])
     fig.tight_layout()
