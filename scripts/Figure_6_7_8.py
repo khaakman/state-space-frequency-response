@@ -105,7 +105,7 @@ def plot_Figure_7(ll_vecs, r_hats):
     for i, key in enumerate(coordinates):
         lat, lon = coordinates[key]
         ax.scatter(lon, lat, label=title_names[i], s=100, edgecolor='k', linewidth=2, transform=ccrs.PlateCarree(), zorder=10)
-    ax.legend()
+    ax.legend(reverse=True)
     land_50m = cfeature.NaturalEarthFeature('physical', 'land', '10m',
                                         edgecolor='face',
                                         facecolor=cfeature.COLORS['land'], zorder=1)
