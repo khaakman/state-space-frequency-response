@@ -10,19 +10,17 @@ def H_IRW(omega, r):
     return 1 / den
 
 def H_RW_amp(omega, omega0, r):
-    num = 2 - np.cos(omega0) * 2 * np.cos(omega)
-    den = 2 + 4*r + 2*r*np.cos(2*omega0) - (4*r + 1) * np.cos(omega0)*2*np.cos(omega) + r*(2*np.cos(2*omega))
-    return num / den
+    num = 2*(np.cos(omega) - np.cos(omega0))**2
+    den = 1 - np.cos(omega) * np.cos(omega0)
+    return 1 / (1 + r * num / den)
 
 def H_IRW_amp(omega, omega0, r):
-    num = 1
-    term1 = np.cos(2*omega0) * 2*np.cos(2*omega)
-    term2 = 4 * np.cos(omega0) * 2*np.cos(omega)
-    term3 = np.sin(2*omega0) * -2j * np.sin(2*omega)
-    term4 = 4 * np.sin(omega0) * -2j * np.sin(omega) 
-    term5 = np.sin(2*omega0) * 2j * np.sin(2*omega) 
-    den = 1 + r * (6 + term1 - term2 + (term3 - term4) * (term5 + term4) / (term2 - term1 - 6))
-    return num / den
+    U_term1 = np.sin(2*omega0)**2 * (2 - 2*np.cos(4*omega))
+    U_term2 = 16 * np.sin(omega0) * np.sin(2*omega0) * (np.cos(omega) - np.cos(3*omega))
+    U_term3 = 16 * np.sin(omega0)**2 * (2*np.cos(2*omega) - 2)
+    V = 8 * np.cos(omega) * np.cos(omega0) - 2 * np.cos(2*omega) * np.cos(2*omega0) - 6
+    U = U_term1 - U_term2 - U_term3
+    return 1 / (1 + r * (U / V - V))
 
 def H_IRW_trend_AR1_errors(omega, r_eta, phi):
     b = phi / (phi**2 - 1)
