@@ -167,7 +167,7 @@ def plot_mean_trends_six(before, after, before_variance, after_variance, r_hats)
     station = 5
     plot_trend_with_confidence_intervals(ax, after, after_variance, station, after_label)
     plot_trend_with_confidence_intervals(ax, before, before_variance, station, before_label)
-    ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE estimate')
+    ax.axvline(r_hats[station], color='k', linestyle='dashed', label='MLE')
     ax.set_xscale('log')
     ax.legend(loc='upper center')
     ax.set_xlabel(r'NVR [-]')
