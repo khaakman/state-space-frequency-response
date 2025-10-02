@@ -36,7 +36,7 @@ def compute_single_station(fn):
     trend = res.states.smoothed[:,0]
     trend_sigma = np.sqrt(res.smoothed_state_cov[0,0,:])
     
-    return trend, trend_sigma
+    return trend, trend_sigma, y
 
 def compute_loglikelihood_function(fn, r_vec):
     station = fn.split('/')[-1].split('_')[0]
@@ -178,11 +178,12 @@ def main():
     years = np.arange(t0, t1)
     
     ### Figure 6
+    observations = np.zeros((len(filenames), len(years)))
     trends = np.zeros((len(filenames), len(years)))
     trend_sigmas = np.zeros_like(trends)
     
     for i, fn in enumerate(filenames):
-        trends[i,:], trend_sigmas[i,:] = compute_single_station(fn)
+        trends[i,:], trend_sigmas[i,:], observations[i,:] = compute_single_station(fn)
     
     colors = plot_Figure_6(trends, trend_sigmas)
     
@@ -202,8 +203,27 @@ def main():
     
     plot_Figure_8(stations, r_hats, phi_hats, colors)
     
+    
+    ### Supplementary information figure
+    plot_supplementary_Figures(observations, trends, trend_sigmas, colors)
+    
     return
 
+def plot_supplementary_Figures(observations, trends, trend_sigmas, colors):
+    
+    for i in range(len(filenames)):
+        fig, ax = plt.subplots(figsize=(14, 6))
+        ax.scatter(years, observations[i,:] - np.mean(observations[i,:]), color='k', label='Surge-corrected observations')#, color=colors[i])
+        ax.plot(years, trends[i,:], color='r', label='IRW fit')
+        lower = trends[i,:] - 1.96 * trend_sigmas[i,:]
+        upper = trends[i,:] + 1.96 * trend_sigmas[i,:]
+        ax.fill_between(years, lower, upper, alpha=0.3, color='r')
+        ax.set_title(title_names[i])
+        ax.set_xlabel('Time [years]')
+        ax.set_ylabel('Sea level [cm]')
+        ax.legend()
+        fig.savefig('../figures/Supplementary_Figure_{}.pdf'.format(title_names[i]), dpi=300, bbox_inches='tight', pad_inches=0.05)
+    return
 
 if __name__ == '__main__':
     main()
