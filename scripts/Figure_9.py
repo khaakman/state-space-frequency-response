@@ -98,11 +98,9 @@ def compute_uncertainty_in_mean_trend(res, idx0, idx1):
         for h in range(1,N-k): #loop over lags 
             covariance = res.smoother_results.smoothed_state_autocovariance(start=idx0+k, end=idx0+k+1, lag=-h)
             term2 += covariance[1,1,0] #add covariance between nu_k and nu_{k+h}
-            print(h, N, covariance[1,1,0])
-    #print(N, term1, term2)
+            
     var_sum_nu_k = term1 + 2 * term2 #sum of variances + 2 times off-diagonal terms
     var_mean_nu_k = 1 / N**2 * var_sum_nu_k 
-    
     return var_mean_nu_k
 
 def plot_trend_with_confidence_intervals(ax, mean, variance, station, label):
@@ -113,8 +111,6 @@ def plot_trend_with_confidence_intervals(ax, mean, variance, station, label):
     return
 
 def plot_mean_trends_six(before, after, before_variance, after_variance, r_hats):
-    print(np.sqrt(after_variance[0,:]))
-    print(np.sqrt(before_variance[0,:]))
     before_label = '1890-1993'
     after_label = '1993-2022'
     fig, axes = plt.subplots(ncols=3, nrows=2, figsize=(12,6))
